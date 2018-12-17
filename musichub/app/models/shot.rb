@@ -4,4 +4,7 @@ class Shot < ApplicationRecord
   mount_uploader :user_shot, UserShotUploader
   is_impressionable
   acts_as_votable
+
+  validates :title, presence:true, length: {minimum: 3, maximum: 50}
+  validates :description, presence:true, length: {minimum: 10}
 end

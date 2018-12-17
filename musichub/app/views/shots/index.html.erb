@@ -12,6 +12,9 @@
               <header class="card-header">
                 <div class="card-header-title title is-5"><%= shot.title %></div>
               </header>
+              <% if !shot.url.blank?%>
+                <small class= "link"><%=link_to shot.url, url_for(shot.url), target: "_blank"%></small>
+              <% end %>
               <div class="card-content">
                 <div class="content">
                   <%= truncate(shot.description, length: 500) %>
@@ -24,7 +27,7 @@
             <% else %>
 
             <%= link_to shot, class: "shot" do %>
-              <%= image_tag(shot.user_shot_url) %>
+              <%= image_tag(shot.user_shot.full.url) %>
               <div align= "center" class="shot-data ">
                 <div class="title is-5"><%= shot.title %></div>
                 <div><%= truncate(shot.description, length: 500) %></div>
@@ -32,6 +35,9 @@
                   <%= time_ago_in_words(shot.created_at) %>
                 </div>
               </div>
+              <% if !shot.url.blank?%>
+                <small class= "link"><%=link_to shot.url, url_for(shot.url), target: "_blank"%></small>
+              <% end %>
             <% end %>
             <% end %>
 

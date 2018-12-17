@@ -1,7 +1,10 @@
 <div class="section">
 	<div class="container">
 		<h1 class="title is-3"><%= @shot.title %></h1>
-    <div class="columns">
+		<% if !@shot.url.blank?%>
+		  <small class= "link"><%=link_to @shot.url, url_for(@shot.url), target: "_blank"%></small>
+		<% end %>
+    <div class="columns space">
 			<div class="column is-8">
 				<span class="by has-text-grey-light">by</span>
 				<div class="user-thumb">
@@ -18,7 +21,7 @@
 			<div class="column is-8">
 				<div class="shot-container">
 					<div class="shot-full">
-						 <%= image_tag @shot.user_shot_url unless @shot.user_shot.blank? %>
+						 <%= image_tag @shot.user_shot.full.url unless @shot.user_shot.blank? %>
 					</div>
 
 					<% if user_signed_in? && (current_user.id == @shot.user_id) %>

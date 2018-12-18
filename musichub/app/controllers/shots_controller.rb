@@ -7,6 +7,7 @@ class ShotsController < ApplicationController
   # GET /shots.json
   def index
     @shots = Shot.all.order('created_at DESC')
+
   end
 
   # GET /shots/1

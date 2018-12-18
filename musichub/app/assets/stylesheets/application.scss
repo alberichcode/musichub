@@ -13,12 +13,17 @@
  *= require_tree .
  *= require_self
  */
+ $black: hsl(0, 0%, 4%);
+ $border: hsl(0, 0%, 86%);
+$card-header-shadow: 0 1px 2px rgba($black, 0);
+$card-shadow: 0 2px 3px rgba($black, 0), 0 0 0 1px rgba($black, 0);
 
 @import "bulma";
 
 html, body {
 	min-height: 100vh;
 	background-color: #f4f4f4;
+  margin-top: 30px;
 }
 
 #drop_zone {
@@ -58,6 +63,7 @@ html, body {
 
 .notification {
 	border-radius: none;
+  margin-top: -10px;
 }
 .notification:not(:last-child) {
 	margin-bottom: 0;
@@ -68,4 +74,16 @@ html, body {
 }
 .file-input {
 	visibility: hidden;
+}
+.cabecera-card{
+	border-bottom: 2px solid #eaeaea;
+}
+.hero{
+  margin-top:-10px;
+}
+.new-shot{
+  margin: 10px;
+}
+.account{
+  margin-right: 50px;
 }

@@ -1,0 +1,13 @@
+<div class="colums top-page-space">
+  <div class="column is-5 is-offset-one-quarter ">
+    <div class="title is-2 has-text-centered">Category: <%= @category.name %></div>
+      <% if user_signed_in? && current_user.is_admin? %>
+        <div class="control">
+          <p class="subtitle is-6 has-text-centered"><%= link_to "Edit category name", edit_category_path(@category) %></p>
+        </div>
+      <% end %>
+  </div>
+
+</div>
+
+<%= render 'shots/shot', obj: @category_shots %>

@@ -1,0 +1,154 @@
+<% obj.each do |shot| %>
+  <div class="column is-5 is-offset-one-quarter ">
+    <div class="shot-wrapper">
+
+      <% if shot.user_shot.blank?%>
+      <%= link_to shot, class: "card" do %>
+        <header class="card-header cabecera-card">
+          <p class="card-header-title title is-5"><%= shot.title %></p>
+        </header>
+        <% if !shot.url.blank?%>
+          <small class= "link"><%=link_to shot.url, url_for(shot.url), target: "_blank"%></small>
+        <% end %>
+        <div class="card-content">
+          <div class="content">
+            <%= truncate(shot.description, length: 500) %>
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags">
+                  <% if shot.categories.any? %>
+                    <%= render shot.categories %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-time">
+          <%= time_ago_in_words(shot.created_at) %>
+        </div>
+      <% end %>
+      <% else %>
+
+      <%= link_to shot, class: "shot" do %>
+        <%= image_tag(shot.user_shot.full.url) %>
+        <div align= "center" class="shot-data ">
+          <div class="title is-5"><%= shot.title %></div>
+          <div><%= truncate(shot.description, length: 500) %></div>
+          <div class="shot-time">
+            <%= time_ago_in_words(shot.created_at) %>
+          </div>
+        </div>
+        <% if !shot.url.blank?%>
+          <small class= "link"><%=link_to shot.url, url_for(shot.url), target: "_blank"%></small>
+        <% end %>
+       <% end %>
+      <% end %>
+
+      <nav class="level shot-analytics">
+        <% if shot.user_shot.blank?%>
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+          <div class="level-item views data">
+            <%= link_to shot do %>
+              <span class="icon"><i class="fa fa-eye"></i></span>
+              <%= shot.impressionist_count %>
+            <% end %>
+          </div>
+          <div class="level-item comments data">
+            <%= link_to shot do %>
+              <span class="icon"><i class="fa fa-comment"></i></span>
+               <%= pluralize(shot.comments.count, "Comment")%>
+            <% end %>
+          </div>
+          <div class="level-item likes">
+            <% if user_signed_in? %>
+
+              <% if current_user.liked? shot %>
+                <%= link_to unlike_shot_path(shot), method: :put, class: "unlike_shot" do %>
+                  <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+              <% else %>
+                <%= link_to like_shot_path(shot), method: :put, class: "like_shot" do %>
+                  <span class="icon"><i class="fa fa-heart"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+              <% end %>
+            <% else %>
+                <%= link_to like_shot_path(shot), method: :put, class: "like_shot" do %>
+                  <span class="icon"><i class="fa fa-heart"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+            <% end %>
+
+
+          </div>
+        </div>
+        <% else %>
+        <div class="level-left">
+          <div class="field is-grouped is-grouped-multiline">
+            <div class="control">
+              <div class="tags">
+                <% if shot.categories.any? %>
+                  <%= render shot.categories %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item views data">
+            <%= link_to shot do %>
+              <span class="icon"><i class="fa fa-eye"></i></span>
+              <%= shot.impressionist_count %>
+            <% end %>
+          </div>
+          <div class="level-item comments data">
+            <%= link_to shot do %>
+              <span class="icon"><i class="fa fa-comment"></i></span>
+               <%= pluralize(shot.comments.count, "Comment")%>
+            <% end %>
+          </div>
+          <div class="level-item likes">
+            <% if user_signed_in? %>
+
+              <% if current_user.liked? shot %>
+                <%= link_to unlike_shot_path(shot), method: :put, class: "unlike_shot" do %>
+                  <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+              <% else %>
+                <%= link_to like_shot_path(shot), method: :put, class: "like_shot" do %>
+                  <span class="icon"><i class="fa fa-heart"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+              <% end %>
+            <% else %>
+                <%= link_to like_shot_path(shot), method: :put, class: "like_shot" do %>
+                  <span class="icon"><i class="fa fa-heart"></i></span>
+                  <span class="vote_count"><%= shot.get_likes.size %></span>
+                <% end %>
+            <% end %>
+
+
+          </div>
+        </div>
+
+        <% end  %>
+      </nav>
+      </div>
+      <div class="user-data">
+        <div class="user-thumb">
+          <%= gravatar_image_tag(shot.user.email.gsub('spam', 'mdeering'), alt: shot.user.name, gravatar: { size: 20 }); %>
+        </div>
+        <div class="user-name"><%= shot.user.name %></div>
+      </div>
+
+
+
+
+
+  </div>
+<% end %>

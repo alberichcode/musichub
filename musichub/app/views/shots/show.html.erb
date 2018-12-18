@@ -34,7 +34,15 @@
 					<div class="content">
 						<%= @shot.description %>
 					</div>
-
+					<div class="field is-grouped is-grouped-multiline">
+					  <div class="control">
+					    <div class="tags">
+				        <% if @shot.categories.any? %>
+                  <%= render @shot.categories %>
+                <% end %>
+							</div>
+						</div>
+					</div>
 					<section class="comments">
 						<h2 class="subtitle is-5"><%= pluralize(@shot.comments.count, 'Comment') %></h2>
 							<%= render @shot.comments %>

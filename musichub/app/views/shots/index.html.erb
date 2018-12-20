@@ -1,11 +1,10 @@
 <%= render 'hero' %>
 
+
 <section class="section">
-  <div class="columns ">
-    <div class="">
-      <%= render 'shot', obj: @shots%>
-
-    </div>
-
+  <div class="columns">
+    <%= render 'sidebar'%>
+    <%= render 'shot', obj: @shots%>
   </div>
+
 </section>

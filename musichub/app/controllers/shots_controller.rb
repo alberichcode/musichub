@@ -1,6 +1,7 @@
 class ShotsController < ApplicationController
   before_action :set_shot, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :like, :unlike]
+  before_action :find_categories, only: [:index, :show]
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
 
   # GET /shots
@@ -90,4 +91,8 @@ class ShotsController < ApplicationController
     def shot_params
       params.require(:shot).permit(:title, :description, :user_shot, :url, category_ids: [])
     end
+
+    def find_categories
+      @categories = Category.all.order('created_at desc')
+end
 end

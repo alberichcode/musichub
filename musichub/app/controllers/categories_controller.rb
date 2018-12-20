@@ -6,12 +6,14 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @categories = Category.all
+    @shots = Shot.all.order( "created_at DESC")
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
     @category_shots = @category.shots
+    @categories = Category.all
   end
 
   # GET /categories/new

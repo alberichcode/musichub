@@ -1,15 +1,38 @@
 <div class="column is-4 ">
-    <div class="accordionWrapper">
-    <div class="accordionItem open">
-          <h2 class="accordionItemHeading" >About accordions<i class="fa fa-caret-down" style="padding-right: 10px; float:right;"></i></h2>
+  <div class="accordionWrapper">
+    <div class="accordionItem open user-data card">
+          <h2 class="accordionItemHeading user-thumb" ><%= gravatar_image_tag(current_user.email.gsub('spam', 'mdeering'),
+             alt: current_user.name, gravatar: { size: 50 }); %><div class="action-name"><%= current_user.name%></div>
+            <i class="fa fa-caret-down"></i></h2>
           <div class="accordionItemContent">
             <p>JavaScript accordions let you squeeze a lot of content into a small space in a Web page.</p>
-            <p>This simple accordion degrades gracefully in browsers that don't support JavaScript or CSS.</p>
+            <br>
+            <div class="level is-mobile">
+              <div class="level-item has-centered-text">
+                <div>
+                  <p class="heading">tweets</p>
+                  <p class="title">200</p>
+                </div>
+              </div>
+              <div class="level-item has-centered-text">
+                <div>
+                  <p class="heading">tweets</p>
+                  <p class="title">200</p>
+                </div>
+              </div>
+              <div class="level-item has-centered-text">
+                <div>
+                  <p class="heading">tweets</p>
+                  <p class="title">200</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="accordionItem close">
-          <h2 class="accordionItemHeading">Accordion items<i class="fa fa-caret-down" style="padding-right: 10px; float:right;"></i></h2>
+          <h2 class="accordionItemHeading">Accordion items
+            <i class="fa fa-caret-down" style="padding-right: 10px; float:right;"></i></h2>
           <div class="accordionItemContent">
             <p>A JavaScript accordion is made up of a number of expandable/collapsible items. Only one item is ever shown at a time.</p>
             <p>You can include any content you want inside an accordion item. Here's a bullet list:</p>
@@ -22,7 +45,8 @@
         </div>
 
         <div class="accordionItem close">
-          <h2 class="accordionItemHeading">How to use a JavaScript accordion<i class="fa fa-caret-down" style="padding-right: 10px; float:right;"></i></h2>
+          <h2 class="accordionItemHeading">How to use a JavaScript accordion
+            <i class="fa fa-caret-down" style="padding-right: 10px; float:right;"></i></h2>
           <div class="accordionItemContent">
             <p>Click an accordion item's heading to expand it. To collapse the item, click it again, or click another item heading.</p>
           </div>
@@ -30,4 +54,6 @@
     </div>
 
   </div>
+
+
 </div>

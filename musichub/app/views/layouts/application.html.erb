@@ -71,7 +71,7 @@
                   <% if current_user.is_admin?%>
                   <%= link_to "New Category",new_category_path,  class:"navbar-item" %>
                   <% end %>
-                  <%= link_to "Link","#", class:"navbar-item" %>
+                  <%= link_to "My account",user_path(current_user), class:"navbar-item" %>
                   <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item" %>
                 </div>
               </div>

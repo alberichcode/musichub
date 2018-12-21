@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong><%= comment.user.name %></strong>
+          <strong><%= link_to comment.user.name, user_path(comment.user) %></strong>
           <div><%= comment.response %></div>
         </p>
       </div>

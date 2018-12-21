@@ -10,4 +10,11 @@
 
 </div>
 
-<%= render 'shots/shot', obj: @category_shots %>
+
+<section class="section">
+  <div class="columns">
+    <%= render 'shots/sidebar'%>
+    <%= render 'shots/shot', obj: @category_shots %>
+  </div>
+
+</section>

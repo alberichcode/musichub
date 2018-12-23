@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :projects
+  resources :teams
   resources :categories
   resources :shots do
     resources :comments

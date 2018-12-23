@@ -1,6 +1,6 @@
 class ShotsController < ApplicationController
   before_action :set_shot, only: [:show, :edit, :update, :destroy, :like, :unlike]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy, :like, :unlike]
+  before_action :authenticate_tenant!, only: [:edit, :update, :destroy, :like, :unlike]
   before_action :find_categories, only: [:index, :show]
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
 

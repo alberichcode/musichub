@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to teams_path, notice: 'Team was successfully created.' }
+        format.html { redirect_to home_projects_index_path, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new }

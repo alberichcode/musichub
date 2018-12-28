@@ -5,5 +5,9 @@ class HomeProjectsController < ApplicationController
   		@projects = Project.where('team_id = ?', current_user.team_id)
   	end
 
+    @activities = PublicActivity::Activity.order("created_at desc")
+
   end
+
+
 end

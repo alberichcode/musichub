@@ -64,7 +64,7 @@
             <% end %>
           </div>
           <div class="level-item likes">
-            <% if user_signed_in? %>
+            <% if current_user %>
 
               <% if current_user.liked? shot %>
                 <%= link_to unlike_shot_path(shot), method: :put, class: "unlike_shot" do %>

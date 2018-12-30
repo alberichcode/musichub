@@ -47,4 +47,5 @@
 //= require_tree .
 document.addEventListener('turbolinks:load', () => {
   $('#project_description').froalaEditor();
+  $('#shot_description').froalaEditor();
 });

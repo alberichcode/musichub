@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_tenant!, only: [:edit, :update, :destroy]
 
   # GET /teams
   # GET /teams.json
@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to home_projects_index_path, notice: 'Team was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new }

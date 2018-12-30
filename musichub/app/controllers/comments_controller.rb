@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-	before_action :authenticate_user!, only: [:create, :destroy]
+	before_action :authenticate_tenant!, only: [:create, :destroy]
 
   def create
   	@shot = Shot.find(params[:shot_id]) # finds the shot with the associated shot_id

@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
-  has_many :teams
-  has_many :users, through: :teams
+  belongs_to :user
+  belongs_to :team
+
 
   accepts_nested_attributes_for :team
 

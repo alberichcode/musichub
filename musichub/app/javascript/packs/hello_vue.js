@@ -49,7 +49,6 @@ document.addEventListener('turbolinks:load', () => {
             })
           },
 
-
           removeUser: function(index) {
             var user = this.team.users_attributes[index]
 

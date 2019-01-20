@@ -1,18 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_tenant!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all.order("created_at DESC")
-    if user_signed_in?
-  		@teams = Team.where('id = ?', current_user.team_id)
-  		@projects = Project.where('team_id = ?', current_user.team_id)
-  	end
-
-    @activities = PublicActivity::Activity.order("created_at desc")
-
   end
 
   # GET /projects/1

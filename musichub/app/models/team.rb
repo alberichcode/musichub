@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
-  has_many :users
-  has_many :projects
+  belongs_to :project
+  belongs_to :user
 
   accepts_nested_attributes_for :users, allow_destroy: true # se asigna a : en este caso user
 

@@ -64,7 +64,7 @@
                   </a>
                 <% else %>
                 <a class="navbar-link user-thumb"><%= gravatar_image_tag(current_user.email.gsub('spam', 'mdeering'), alt: current_user.name, gravatar: { size: 30 }); %>
-                  <%= current_tenant.name %>
+                  <%= current_user.name %>
                 </a>
                 <% end %>
                 <div class="navbar-dropdown">
@@ -74,7 +74,6 @@
                   <% end %>
                   <%= link_to "My account",user_path(current_user), class:"navbar-item" %>
                   <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item" %>
-                  <%= link_to "Add new member", new_member_path, class:"navbar-item" %>
                 </div>
               </div>
               <% else %>

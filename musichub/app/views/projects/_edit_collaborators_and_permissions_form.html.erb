@@ -1,0 +1,21 @@
+<div class="columns">
+  <div class="column ">
+    <p><%= user_project.collaborator.name %> (<%= user_project.permission %>)</p>
+    <%= render partial: "delete_collaborator_form", locals: {person: user_project.collaborator} %>
+  </div>
+
+  <div class="column">
+    <%= form_for(user_project, url: edit_user_project_permission_path ) do |f| %>
+    <div class="control inline">
+      <%= f.label :permission, class: "label" %>
+        <%= f.select :permission, UserProject.permissions.collect {|k,v| k}, selected: user_project.permission %>
+    </div>
+    <div class="control inline">
+      <%= f.hidden_field :project_id, value: project.id %>
+      <%= f.hidden_field :id, value: user_project.id %>
+      <%= f.submit "Update Permission", class: "input button is-small is-primary" %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="line-light"></div>

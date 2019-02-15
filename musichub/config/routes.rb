@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'home_projects/index'
-  resources :projects
-  resources :teams
+  resources :projects do
+    get :overdue, on: :collection
+    get :complete, on: :collection
+
+    post '/delete_collaborator', to: 'projects#delete_collaborator'
+  end
   resources :categories
   resources :shots do
     resources :comments
@@ -16,6 +19,12 @@ Rails.application.routes.draw do
 
   as :user do
     put '/user/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
+  end
+  patch '/edit_user_project_permission', to: 'user_projects#edit_user_project_permission'
+  namespace :admin do
+    get 'dashboard' => 'dashboard#index', :as => :dashboard
+    get 'users' => 'dashboard#users', :as => :users
+    get 'users/:id' => 'dashboard#user_edit', :as => :user_edit
   end
 
   root 'home#index'

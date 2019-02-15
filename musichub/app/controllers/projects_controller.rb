@@ -1,77 +1,92 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
-  # GET /projects
-  # GET /projects.json
-  def index
-    @projects = Project.all.order("created_at DESC")
-  end
+    before_action :set_project, except: [:create]
+    before_action :project_statuses_count, only: [:index, :complete, :overdue]
 
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
-  end
+    ## STANDARD RESTFUL ACTIONS
 
-  # GET /projects/new
-  def new
-    @project = current_user.projects.build
-    @teams = Team.where('id = ?', current_user.team_id)
-  end
+    def index
+      @projects = (@user.active_projects + @user.collaboration_projects.active).reverse
+    end
 
-  # GET /projects/1/edit
-  def edit
-    @teams = current_user.teams
-  end
+    def new
+      @project = Project.new
+    end
 
-  # POST /projects
-  # POST /projects.json
-  def create
-    @project = current_user.projects.build(project_params)
-
-    respond_to do |format|
+    def create
+      @project = Project.new(project_params)
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+        redirect_to project_path(@project)
       else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        @project
+        render :new
       end
     end
-  end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
-  def update
-    respond_to do |format|
+    def show
+      authorize @project
+      @project = Project.find_by(id: params[:id])
+      @user_projects = UserProject.projects(@project.id)
+    end
+
+    def edit
+      authorize @project
+      @project = Project.find_by(id: params[:id])
+      @collaborators = @project.collaborators
+      @user_projects = UserProject.projects(@project.id)
+    end
+
+    def update
+      authorize @project
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
+        redirect_to project_path(@project)
       else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        render :show
       end
     end
-  end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
-  def destroy
-    @project.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
+    def destroy
+      authorize @project
+      @project.destroy
+      redirect_to projects_path
     end
-  end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
+    ## ADDITIONAL ACTIONS
+
+    def delete_collaborator
+      authorize @project
+      user = User.find_by(id: params[:user][:id])
+      @project.collaborators.delete(user)
+      @project.save
+      redirect_to project_path(@project)
+    end
+
+    def complete
+      @projects = (@user.complete_projects + @user.collaboration_projects.complete).reverse
+    end
+
+    def overdue
+      @projects = (@user.projects.overdue + @user.collaboration_projects.overdue).reverse
+    end
+
+    ## PRIVATE METHODS
+
+    private
     def set_project
-      @project = Project.find(params[:id])
+      if params[:id]
+         @project = Project.find_by(id: params[:id])
+      else
+        @project = Project.find_by(id: params[:project_id])
+      end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def project_statuses_count
+      @overdue = (current_user.overdue_projects + current_user.collaboration_projects.overdue).uniq.count
+      @active = (current_user.active_projects + current_user.collaboration_projects.active).uniq.count
+      @complete = (current_user.complete_projects + current_user.collaboration_projects.complete).uniq.count
+    end
+
     def project_params
-      params.require(:project).permit(:name, :description, :team_id)
+      params.require(:project).permit(:name, :description, :collaborator_emails, :owner_id, :due_date, :status)
     end
 end

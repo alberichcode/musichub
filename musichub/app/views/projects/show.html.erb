@@ -3,13 +3,7 @@
 		<div class="columns is-centered">
 			<div class="column is-9">
 				<h1 class="title is-2"><%= @project.name %></h1>
-				<h2 class="subtitle is-5 has-text-weight-light"><span class="icon is-small has-text-weight-lighter"><i class="fa fa-users"></i>&nbsp; &nbsp;</span> <%= link_to @project.team.name, team_path(@project.team) %></h2>
 				<div class="level">
-					<div class="level-left">
-						<p>Created on
-							<%= verbose_date(@project.created_at) %> by <%= @project.user.name %> / Modified
-							<%= time_ago_in_words(@project.updated_at) %></p>
-					</div>
 					<div class="level-right">
 						<div class="buttons">
 							<%= link_to 'Edit Project', edit_project_path(@project), class:'button' %>
@@ -22,6 +16,36 @@
 					<%= @project.description.html_safe %>
 				</div>
 			</div>
+			<div class="col-sm-4">
+       <div class="default-block">
+         <h3> Project Details </h3>
+         <div class="line-dark"></div>
+          <span class="overdue"> <%= "Overdue" if @project.overdue? && !@project.complete? %></span>
+          <p> <%= @project.description %> </p>
+          <p> Created: <%= @project.created_at %> </p>
+          <p> Due: <%= @project.due_date %> </p>
+          <p> Status: <%= @project.status %> </p>
+          <div class="line-light"></div>
+       </div>
+      </div>
+
+      <div class="col-sm-4">
+       <div class="default-block">
+        <h3> People </h3>
+        <div class="line-dark"></div>
+         <p> <%= @project.owner.email %> (Owner) </p>
+         <% @user_projects.each do |up| %>
+          <div class="row">
+           <div class="col-xs-12">
+            <div class="inline"> <p> <%= up.collaborator.email  %> (<%= up.permission  %>)</p> </div>
+            <div class="inline"> <%= render partial: "delete_collaborator_form", locals: {person: up.collaborator} %> </div>
+           </div>
+          </div>
+         <% end %>
+        <%= render partial: "add_collaborator_form", locals: {project: @project} %>
+      <div class="line-light"></div>
+    </div>
+  </div>
 		</div>
 	</div>
 </section>

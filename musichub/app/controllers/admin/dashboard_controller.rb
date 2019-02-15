@@ -1,0 +1,21 @@
+class Admin::DashboardController < ApplicationController
+  layout "admin_layout"
+  before_action :authenticate_user
+
+  def index
+    @projects = Project.all
+    @users = User.all
+  end
+
+  def users
+    @users = User.all
+  end
+
+  private
+  def authenticate_user
+    unless @user.admin?
+      redirect_to root_path
+    end
+  end
+
+end

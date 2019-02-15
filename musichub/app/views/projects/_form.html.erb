@@ -1,48 +1,36 @@
-<%= simple_form_for(@project) do |f| %>
-  <%= f.error_notification %>
+<%= form_with(model: project, local: true) do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
-	<% if !current_user.team_id.blank? %>
-   <div class="field">
-   	<div class="control">
-   		<%= f.input :name, input_html: { class: "input" }, wrapper: false, label_html: { class: "label"} %>
-   	</div>
-   </div>
-   <div class="field">
-   	<div class="control">
-   		<%= f.input :description, input_html: { class: "textarea" }, wrapper: false, label_html: { class: "label"} %>
-   	</div>
-   </div>
+      <ul>
+      <% project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-   <div class="field">
-   	<div class="control">
-   		<label class="label">Team</label>
-   		<div class="control has-icons-left">
-   			<span class="select">
-   				<%= f.input_field :team_id, collection: @teams, prompt: "Select team" %>
-   			</span>
-   			<span class="icon is-small is-left">
-   				<i class="fa fa-users"></i>
-   			</span>
-   		</div>
-   	</div>
-   </div>
-
-   <div class="field">
-   	<div class="control">
-   		<%= f.button :submit, class: "button is-link" %>
-   	</div>
-   </div>
-	<% else %>
-
-		<article class="message is-warning">
-			<div class="message-body">
-				<strong>It looks as though you are not part of a team yet!</strong>
-				<p>You can create a team or get invited by another user to join.</p>
-				<br />
-				<%= link_to 'Create a team', new_team_path, class:'button' %>
-			</div>
-		</article>
-
-	<% end %>
-
+  <%= form_for(project) do |f| %>
+    <div class="form-group">
+    <%= f.label :name, class: "control-label"%>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+    <%= f.label :description, class: "control-label"%>
+      <%= f.text_field :description,  class: "form-control" %>
+    </div>
+    <div class="form-group">
+    <%= f.label :due_date, class: "control-label"%>
+      <%= f.date_select :due_date, :order => [:month, :day, :year], class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :collaborators, "Collaborators (Email address, comma seperated)" %>
+        <%= f.text_field :collaborator_emails, class: "form-control"%>
+    </div>
+    <div class="form-group">
+    <%= f.hidden_field :owner_id, value: @user.id %>
+    <%= f.submit class: "btn btn-primary"%>
+    </div>
+  <% end %>
 <% end %>

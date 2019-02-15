@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_20_182149) do
+ActiveRecord::Schema.define(version: 2019_02_15_024303) do
 
   create_table "activities", force: :cascade do |t|
     t.string "trackable_type"
@@ -74,12 +74,14 @@ ActiveRecord::Schema.define(version: 2019_01_20_182149) do
   end
 
   create_table "projects", force: :cascade do |t|
+    t.integer "owner_id"
     t.string "name"
-    t.text "description"
+    t.string "description"
+    t.date "due_date"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "team_id"
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
 
   create_table "shot_categories", force: :cascade do |t|
@@ -97,12 +99,12 @@ ActiveRecord::Schema.define(version: 2019_01_20_182149) do
     t.string "url"
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "project_id"
+  create_table "user_projects", force: :cascade do |t|
+    t.integer "collaborator_id"
+    t.integer "collaboration_project_id"
+    t.integer "permission", default: 0
+    t.index ["collaboration_project_id"], name: "index_user_projects_on_collaboration_project_id"
+    t.index ["collaborator_id"], name: "index_user_projects_on_collaborator_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -121,7 +123,7 @@ ActiveRecord::Schema.define(version: 2019_01_20_182149) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.boolean "is_admin", default: false
-    t.integer "team_id"
+    t.integer "role", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

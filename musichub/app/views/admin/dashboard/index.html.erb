@@ -1,0 +1,10 @@
+<div class="default-block">
+  <h2>Dashboard</h2>
+  <div class="line-dark"></div>
+
+  <h3> <%= link_to "#{@users.count} users", admin_users_path %></h3>
+
+  <h3> <%= @projects.count %> projects</h3>
+    <h5> <%= @projects.active.count %> active</h5>
+    <h5> <%= @projects.complete.count %> complete</h5>
+</div>

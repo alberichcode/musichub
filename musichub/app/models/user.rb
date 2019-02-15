@@ -6,12 +6,31 @@ class User < ApplicationRecord
 
   has_many :shots, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :teams
   has_many :projects
 
+  has_many :user_projects, foreign_key: "collaborator_id"
+  has_many :projects, foreign_key: "owner_id"
+  has_many :collaboration_projects, through: :user_projects
 
+  enum role: [:user, :admin]
   acts_as_voter
   validates :name, presence: true, length: {minimum:2}
+
+  def all_active_projects
+    self.projects.active + self.collaboration_projects
+  end
+
+  def active_projects
+    self.projects.active
+  end
+
+  def complete_projects
+    self.projects.complete
+  end
+
+  def overdue_projects
+    self.projects.overdue
+  end
 
 
   # new function to set the password without knowing the current

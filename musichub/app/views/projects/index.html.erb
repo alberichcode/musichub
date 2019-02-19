@@ -5,7 +5,6 @@
   <div class="line-dark"> </div>
   <% if @projects.empty? %>
     <h4><%= "You don't have any projects yet. Why not start by creating a new one?" %></h4>
-    <%= link_to "Create a new one", new_project_path%>
   <% else %>
     <div class="row">
       <% @projects.each_with_index do |project, index| %>
@@ -13,4 +12,5 @@
       <%end %>
     </div>
   <% end %>
+  <%= link_to "Create a new one", new_project_path%>
 </div>

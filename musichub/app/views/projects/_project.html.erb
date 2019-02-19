@@ -1,21 +1,29 @@
-<div class="column is-4">
-  <h3> <%= link_to project.name, project_path(project) %> </h3>
-  <span class="overdue"> <%= "Overdue" if project.overdue? && !project.complete?%></span>
-  <% if project.owner == current_user %>
-    <p class="owner-text"> You're an owner </p>
-  <% else %>
-    <p class="collaborator-text"> You're a collaborator</p>
+<div class="projects-wrapper">
+  <%= link_to project, class: "card" do %>
+    <header class="card-header cabecera-card">
+      <div class="level">
+        <div class="level-left">
+          <p class="card-header-title title is-5"><%= project.name %></p>
+        </div>
+        <div class="level-right">
+          <span class="overdue"> <%= "Overdue" if project.overdue? && !project.complete?%></span>
+        </div>
+      </div>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <%= truncate(project.description.html_safe,escape: false, length: 450) %>
+      </div>
+    </div>
+    <small>Created by: <%= project.owner.name %></small>
+    <br>
+    <small> Collaborators: <% project.collaborators.each do |person| %> <%= person.name %>/ <%end%> </small>
+    <br>
+    <small>Due: <%= project.due_date %> </small>
+    <div class="card-time">
+      <%= time_ago_in_words(project.created_at) %>
+    </div>
+
   <% end %>
-  <p> <%= project.description %> </p>
-  <p> Created: <%= project.created_at %> </p>
-  <p> Due: <%= project.due_date %> </p>
-  <p> Status: <%= project.status.capitalize %> </p>
-  <p> Collaborators: <% project.collaborators.each do |person| %> <%= person.email %> <%end%> </p>
-  <div class="inline-button">
-    <%= link_to "View Project", project_path(project), class: "button is-primary" %>
-  </div>
-  <div class="inline-button">
-    <%= link_to "Edit Project", edit_project_path(project), class: "button is-primary" %>
-  </div>
- <div class="line-light"> </div>
+
 </div>

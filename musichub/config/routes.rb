@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users, controllers: { registrations: 'registrations',
-    sessions:'sessions', confirmations:'confirmations' }
-  resources :users, only: [:show]
+    sessions:'sessions', confirmations:'confirmations', invitations: 'invitations' }
+  resources :users, only: [:show, :index]
 
   as :user do
     put '/user/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation

@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'bulma-rails'
 gem 'devise'
+gem 'devise_invitable'
 gem 'carrierwave'
 gem 'simple_form'
 gem 'mini_magick'

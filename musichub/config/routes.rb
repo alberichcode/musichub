@@ -20,12 +20,6 @@ Rails.application.routes.draw do
   as :user do
     put '/user/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
   end
-  patch '/edit_user_project_permission', to: 'user_projects#edit_user_project_permission'
-  namespace :admin do
-    get 'dashboard' => 'dashboard#index', :as => :dashboard
-    get 'users' => 'dashboard#users', :as => :users
-    get 'users/:id' => 'dashboard#user_edit', :as => :user_edit
-  end
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

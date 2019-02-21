@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name])
+    devise_parameter_sanitizer.permit(:accept_invitation) do |user_params|
+      user_params.permit(:name, :password, :password_confirmation, :invitation_token)
+    end
   end
 end

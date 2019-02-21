@@ -1,12 +1,35 @@
-<h2><%= t 'devise.invitations.edit.header' %></h2>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+				<h2 class="title is-2">Set your account</h2>
+        <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
+        <%= f.error_notification%>
+          <div class="field">
+  				  <div class="control">
+              <%= f.input :name, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+  				  </div>
+  				 </div>
 
-<%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :invitation_token %>
-  <%= f.input :name%>
+          <div class="field">
+            <div class="control">
+  				   <%= f.input :password, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+  				  </div>
+  				</div>
+          <div class="field">
+            <div class="control">
+  				   <%= f.input :password_confirmation, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+  				  </div>
+  				</div>
+          <div class="field">
+            <div class="control">
+              <%= f.hidden_field :invitation_token %>
+              <%= f.button :submit, "Sign up", class:"button is-primary is-medium" %>
+            </div>
+          </div>
 
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
-
-  <%= f.button :submit, t("devise.invitations.edit.submit_button") %>
-<% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

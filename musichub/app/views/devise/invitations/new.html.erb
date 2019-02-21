@@ -1,11 +1,22 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+				<h2 class="title is-2">Invite new user</h2>
+        <%= render "shared/errors", obj: @user%>
+        <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f| %>
+        <div class="field">
+          <div class="control">
+            <% resource.class.invite_key_fields.each do |field| -%>
+              <%= f.input field,required: true,autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }  %>
+            <% end -%>
+          </div>
+        </div>
 
-<%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f| %>
-  <%= devise_error_messages! %>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <%= f.input field %>
-<% end -%>
-
-<%= f.button :submit, t("devise.invitations.new.submit_button") %>
-<% end %>
+        <%= f.button :submit, "Send", class:"button is-primary is-medium" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

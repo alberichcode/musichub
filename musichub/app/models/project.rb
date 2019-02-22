@@ -6,6 +6,7 @@ class Project < ApplicationRecord
 
   has_many :user_projects, foreign_key: "collaboration_project_id"
   has_many :collaborators, through: :user_projects
+  has_many :project_comments, dependent: :destroy
   belongs_to :owner, class_name: "User"
 
   scope :complete, -> { where(status: 1) }

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get :complete, on: :collection
 
     post '/delete_collaborator', to: 'projects#delete_collaborator'
+    resources :project_comments
   end
   resources :categories
   resources :shots do

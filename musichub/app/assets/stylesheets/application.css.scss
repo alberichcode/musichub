@@ -357,5 +357,8 @@ border-radius: 3px;
 .notification:not(:last-child) {
 	margin-bottom: 0;
 }
+.avatar-image{
+  border-radius: 50%;
+}
 
 @import "projects";

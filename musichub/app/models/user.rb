@@ -16,6 +16,8 @@ class User < ApplicationRecord
   acts_as_voter
   validates :name, presence: true, length: {minimum:2}
 
+  has_one_attached :avatar
+
   def all_active_projects
     self.projects.active + self.collaboration_projects
   end

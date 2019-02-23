@@ -2,7 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-48x48 user-thumb">
-        <%= gravatar_image_tag(project_comment.user.email.gsub('spam', 'mdeering'), alt: project_comment.user.name, gravatar: { size: 48 }) %>
+        <%= image_tag user_avatar(project_comment.user, 50), class: "avatar-image"%>
       </p>
     </figure>
     <div class="media-content">

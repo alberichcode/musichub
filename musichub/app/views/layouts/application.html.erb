@@ -59,11 +59,11 @@
 
               <div class="navbar-item has-dropdown is-hoverable account">
                 <% if current_user.is_admin?%>
-                  <a class="navbar-link user-thumb"><%= gravatar_image_tag(current_user.email.gsub('spam', 'mdeering'), alt: current_user.name, gravatar: { size: 30 }); %>
+                  <a class="navbar-link"> <%= image_tag user_avatar(current_user, 30), class: "avatar-image"%>
                     <%= current_user.name %> (Admin)
                   </a>
                 <% else %>
-                <a class="navbar-link user-thumb"><%= gravatar_image_tag(current_user.email.gsub('spam', 'mdeering'), alt: current_user.name, gravatar: { size: 30 }); %>
+                <a class="navbar-link"><%= image_tag user_avatar(current_user, 30), class: "avatar-image"%>
                   <%= current_user.name %>
                 </a>
                 <% end %>

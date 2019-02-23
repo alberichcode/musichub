@@ -1,8 +1,7 @@
 <div class="column is-4 ">
   <div class="accordionWrapper">
     <div class="accordionItem open user-data card">
-          <h2 class="accordionItemHeading user-thumb" ><%= gravatar_image_tag(current_user.email.gsub('spam', 'mdeering'),
-             alt: current_user.name, gravatar: { size: 50 }); %><div class="action-name"><%= current_user.name%></div>
+          <h2 class="accordionItemHeading" >  <%= image_tag user_avatar(current_user, 50), class: "avatar-image"%><div class="action-name"><%= current_user.name%></div>
             <i class="fa fa-caret-down"></i></h2>
           <div class="accordionItemContent">
             <p>JavaScript accordions let you squeeze a lot of content into a small space in a Web page.</p>

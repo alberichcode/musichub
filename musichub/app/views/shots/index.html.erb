@@ -3,9 +3,13 @@
 
 <section class="section">
   <div class="columns">
+    <% if user_signed_in?%>
     <%= render 'sidebar'%>
+    <% end %>
     <%= render 'shot', obj: @shots%>
+    <% if user_signed_in?%>
     <%= render 'action'%>
+    <% end %>
   </div>
 
 </section>

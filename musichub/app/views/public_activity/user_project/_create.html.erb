@@ -1,0 +1,9 @@
+<li class="pv2 ph2 border-bottom">
+	<span class="icon is-small"><i class="fa fa-comment"></i></span><strong>
+		<%= activity.owner ? activity.owner.name : 'Guest' %></strong> added
+	<% if activity.trackable %>
+		 <%=activity.trackable.collaborator.name %>
+	<% else %>
+		which has since been removed
+	<% end %>
+</li>

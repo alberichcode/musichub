@@ -1,5 +1,6 @@
 <li class="pv2 ph2 border-bottom">
-	<span class="icon is-small"><i class="fa fa-pencil"></i></span> created project
+	<span class="icon is-small"><i class="fa fa-pencil"></i></span><strong>
+		<%= activity.owner ? activity.owner.name : 'Guest' %></strong> created project
 	<% if activity.trackable %>
 		<%= link_to activity.trackable.name, activity.trackable %>
 	<% else %>

@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
     def index
       @projects = (@user.active_projects + @user.collaboration_projects.active).reverse
+      @activities = PublicActivity::Activity.order("created_at DESC").where(owner_id: current_user.user_projects, owner_type: "User" )
     end
 
     def new
@@ -30,14 +31,14 @@ class ProjectsController < ApplicationController
     end
 
     def edit
-      authorize @project
+      authorize @project unless current_user.is_admin?
       @project = Project.find_by(id: params[:id])
       @collaborators = @project.collaborators
       @user_projects = UserProject.projects(@project.id)
     end
 
     def update
-      authorize @project
+      authorize @project unless current_user.is_admin?
       if @project.update(project_params)
         redirect_to project_path(@project)
       else
@@ -46,7 +47,7 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
-      authorize @project
+      authorize @project unless current_user.is_admin?
       @project.destroy
       redirect_to projects_path
     end

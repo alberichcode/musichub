@@ -15,6 +15,11 @@
     <%= link_to "New Project",  new_project_path, class: "button is-primary"%>
 </div>
 <% else %>
+<div class="columns">
+  <div class="column is-four-fifths has-text-centered space">
+    <%= link_to "New Project",  new_project_path, class: "button is-primary"%>
+  </div>
+</div>
 <section class="section">
 	<div class="columns">
 		<div class="column is-four-fifths">
@@ -26,8 +31,7 @@
 
 		</div>
 	  <div class="column ">
-	  		<%= link_to "New Project",  new_project_path, class: "button is-primary"%>
-
+      <%= render_activities(@activities) %>
 	  </div>
 
 

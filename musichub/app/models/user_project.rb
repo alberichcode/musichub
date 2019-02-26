@@ -1,4 +1,7 @@
 class UserProject < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: Proc.new {|controller, model| controller.current_user}
+  
   belongs_to :collaboration_project, class_name: "Project"
   belongs_to :collaborator, class_name: "User"
 

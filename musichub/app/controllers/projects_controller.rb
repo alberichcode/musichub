@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
     def index
       @projects = (@user.active_projects + @user.collaboration_projects.active).reverse
-      @activities = PublicActivity::Activity.order("created_at DESC").where(owner_id: current_user.user_projects, owner_type: "User" )
+      @activities = PublicActivity::Activity.order("created_at DESC").where(owner_id: current_user,owner_type: "User" )
     end
 
     def new

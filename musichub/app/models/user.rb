@@ -14,6 +14,8 @@ class User < ApplicationRecord
 
   enum role: [:user, :admin]
   acts_as_voter
+  acts_as_followable
+  acts_as_follower
   validates :name, presence: true, length: {minimum:2}
 
   has_one_attached :avatar

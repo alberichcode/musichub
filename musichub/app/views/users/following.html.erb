@@ -1,0 +1,6 @@
+<div class="">
+  <% @user.all_following.each do |f|%>
+    <%= link_to f.name, f%>
+
+  <% end %>
+</div>

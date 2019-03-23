@@ -16,12 +16,17 @@ Rails.application.routes.draw do
   end
   devise_for :users, controllers: { registrations: 'registrations',
     sessions:'sessions', confirmations:'confirmations', invitations: 'invitations' }
-  resources :users, only: [:show, :index]
-
-  as :user do
-    put '/user/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
+  resources :users, only: [:show, :index] do
+    as :user do
+      put '/user/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
+    end
+    member do
+      get :follow
+      get :unfollow
+      get :followers
+      get :following
+    end
   end
-
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

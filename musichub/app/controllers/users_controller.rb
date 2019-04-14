@@ -27,11 +27,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password)
+  def search
+    @users = User.search(params[:search_param])
+    if params[:search].blank?
+      redirect_to(my_friends_path, alert: "Empty field!") and return
+    else
+      @parameter = params[:search].downcase
+      @users = User.all.where("lower(name) LIKE :search", search: "%#{@parameter}%")
+      render "users/my_friends"
+    end
   end
 
 

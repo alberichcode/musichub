@@ -73,4 +73,18 @@ class User < ApplicationRecord
  end
 end
 
+  def self.search(param)
+    return User.none if param.blank?
+
+    param.strip!
+    param.downcase!
+    (name_matches(param) + email_matches(param)).uniq
+  end
+  def self.matches(field_name, param)
+    where("lower(#{field_name}) like ?", "%#{param}%")
+  end
+
+
+
+
 end

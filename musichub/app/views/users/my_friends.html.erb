@@ -1,0 +1,30 @@
+<%= render 'friends/lookup' %>
+<% if @user.all_following.size > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="3" class="page-header">
+          <h2>My Friends</h2>
+        </th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.all_following.each do |friend| %>
+      <tr>
+        <td><%= link_to friend.name, friend %></td>
+        <td><%= link_to friend.email, friend %></td>
+
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="row col-lg-12">
+    <p class="lead">You don't have any friends yet. Please add some!</p>
+  </div>
+<% end %>

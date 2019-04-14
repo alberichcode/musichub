@@ -48,3 +48,10 @@
 document.addEventListener('turbolinks:load', () => {
   $('#project_description').froalaEditor();
 });
+var hide_spinner = function(){
+  $('#spinner').hide();
+}
+
+var show_spinner = function(){
+  $('#spinner').show();
+}

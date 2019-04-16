@@ -78,11 +78,9 @@ end
 
     param.strip!
     param.downcase!
-    (name_matches(param) + email_matches(param)).uniq
+    name_matches(param).uniq
   end
-  def self.matches(field_name, param)
-    where("lower(#{field_name}) like ?", "%#{param}%")
-  end
+
 
 
 

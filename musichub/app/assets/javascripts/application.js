@@ -47,6 +47,7 @@
 //= require_tree .
 document.addEventListener('turbolinks:load', () => {
   $('#project_description').froalaEditor();
+
 });
 var hide_spinner = function(){
   $('#spinner').hide();
@@ -57,16 +58,14 @@ var show_spinner = function(){
 }
 
 
-function openTab(evt, tabName) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("content-tab");
-  for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tab");
-  for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" is-active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " is-active";
-}
+$(document).ready(function() {
+  $('#tabs li').on('click', function() {
+    var tab = $(this).data('tab');
+
+    $('#tabs li').removeClass('is-active');
+    $(this).addClass('is-active');
+
+    $('#tab-content p').removeClass('is-active');
+    $('p[data-content="' + tab + '"]').addClass('is-active');
+  });
+});

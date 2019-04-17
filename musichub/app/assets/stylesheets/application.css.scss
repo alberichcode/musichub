@@ -367,6 +367,22 @@ border-radius: 3px;
 .media-content{
   margin-left: 80px;
 }
+#tab-content p {
+  display: none;
+}
+
+#tab-content p.is-active {
+  display: block;
+}
+.follow-button{
+  margin-left: 25px;
+}
+.pointer{
+  cursor: pointer;
+}
+.pointer:hover{
+  color: yellow;
+}
 
 
 @import "projects";

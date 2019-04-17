@@ -383,6 +383,24 @@ border-radius: 3px;
 .pointer:hover{
   color: yellow;
 }
+.user-info{
+  font-size: 18px;
+  padding: 20px;
+}
+.margen{
+  margin-top: 50px;
+}
 
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+	grid-gap: 1rem;
+	@media only screen and (max-width: 800px) {
+		grid-template-columns: 1fr 1fr;
+	}
+	@media only screen and (max-width: 400px) {
+		grid-template-columns: 1fr;
+	}
+}
 
 @import "projects";

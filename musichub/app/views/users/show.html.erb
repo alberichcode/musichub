@@ -26,14 +26,14 @@
                 <div class="level">
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Following </p>
-                      <p class="title"><%= @user.follow_count%></p>
+                      <p class="heading pointer"><%= link_to "Following", following_user_path%></p>
+                      <p class="title pointer"><%= link_to @user.follow_count, following_user_path%></p>
                     </div>
                   </div>
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Followers</p>
-                      <p class="title"><%=@user.followers_count%></p>
+                      <p class="heading pointer"><%= link_to "Followers", followers_user_path%></p>
+                      <p class="title pointer"><%= link_to @user.followers_count, followers_user_path%></p>
                     </div>
                   </div>
                 </div>
@@ -73,20 +73,25 @@
     </nav>
   </div>
 </section>
-<div id="tab-content">
+<div id="tab-content" class="margen">
   <p class="is-active" data-content="1">
     Lo que se me ocurra
   </p>
   <p data-content="2">
     Music
   </p>
-  <p data-content="3">
-      <% @user.all_following.each do |f|%>
-        <%= link_to f.name, f%>
+  <div class="columns is-centered grid">
+    <div class="column is-6">
+      <p data-content="3" class="user-info">
+          <% @user.all_following.each do |user|%>
+            <%= image_tag user_avatar(@user, 70), class: "avatar-image"%>
+            <%= link_to user.name, user, class:""%>
+            <%=link_to "Instrument", class: ""%>
+          <% end %>
+      </p>
+    </div>
+  </div>
 
-      <% end %>
-
-  </p>
   <p data-content="4">
       <% @user.followers.each do |f|%>
         <%= link_to f.name, f%>

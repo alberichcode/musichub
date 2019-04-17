@@ -44,59 +44,5 @@
       </div>
     </div>
   </div>
-  <div class="hero-foot">
-    <nav class="tabs is-medium is-boxed is-centered" id="tabs">
-      <ul>
-        <li class="is-active" data-tab="1">
-          <a>
-            <span class="icon is-small"><i class="fa fa-image"></i></span>
-            <span>Pictures</span>
-          </a>
-        </li>
-        <li data-tab="2">
-          <a>
-            <span class="icon is-small"><i class="fa fa-music"></i></span>
-            <span>Music</span>
-          </a>
-        </li>
-        <li data-tab="3">
-          <a>
-            <span>Following <span class="is-italic"><%= @user.follow_count%></span></span>
-          </a>
-        </li>
-        <li data-tab="4">
-          <a>
-            <span>Followers <span class="is-italic"><%=@user.followers_count%></span></span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
 </section>
-<div id="tab-content" class="margen">
-  <p class="is-active" data-content="1">
-    Lo que se me ocurra
-  </p>
-  <p data-content="2">
-    Music
-  </p>
-  <div class="columns is-centered grid">
-    <div class="column is-6">
-      <p data-content="3" class="user-info">
-          <% @user.all_following.each do |user|%>
-            <%= image_tag user_avatar(@user, 70), class: "avatar-image"%>
-            <%= link_to user.name, user, class:""%>
-            <%=link_to "Instrument", class: ""%>
-          <% end %>
-      </p>
-    </div>
-  </div>
 
-  <p data-content="4">
-      <% @user.followers.each do |f|%>
-        <%= link_to f.name, f%>
-
-      <% end %>
-
-  </p>
-</div>
